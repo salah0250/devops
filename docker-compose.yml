@@ -1,0 +1,11 @@
+services:
+  db:
+    image: salah0250/devops:db
+
+  words:
+    image: salah0250/devops:words
+
+  web:
+    image: salah0250/devops:web
+    ports:
+      - "80:80"
