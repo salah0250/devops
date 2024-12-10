@@ -1,0 +1,28 @@
+name: Build and Push Docker Images
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push images
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/devops:db
+          ${{ secrets.DOCKER_USERNAME }}/devops:words
+          ${{ secrets.DOCKER_USERNAME }}/devops:web
