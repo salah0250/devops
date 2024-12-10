@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: words
+  namespace: dockercoins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: words
+  template:
+    metadata:
+      labels:
+        app: words
+    spec:
+      containers:
+        - name: words
+          image: salah0250/devops:words
+          env:
+            - name: DB_URL
+              value: jdbc:postgresql://db:5432/wordsmith
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              value: postgres
+          ports:
+            - containerPort: 8080
